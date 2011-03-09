@@ -1,0 +1,139 @@
+
+谷岡Stooq
+=========
+
+http://tnok.jp/stooq/ のソースコードです。
+自分のバックアップ用途（そしてマイグレートに備えて）のために git 化しているので、
+読みやすさとか他の環境での動作ははじめから捨てています。
+
+
+用意するもの
+------------
+
+ほぼ Debian squeeze のパッケージで揃います。
+
+PHP 5.3.3
+Ruby 1.8.7p302
+MySQL 5.1.49
+Memcached 1.4.5
+
+Gnuplot 4.4
+ImageMagick 6.6
+
+grep require でざくっとしらべた依存関係は以下の通り。
+
+必要な RubyGem:
+- RMagick
+- gnuplot
+- mechanize
+- nokogiri
+- memcache
+
+必要な Ruby 拡張:
+- mysql
+
+必要な PHP 拡張:
+- mbstring
+- memcached
+- mysqli
+
+
+インストール
+------------
+
+stooq.sql を MySQL に与えてスキーマを準備。
+
+config.inc.php.dist を config.inc.php にコピーして、DBユーザとかパスワードを設定。
+config.rb.dist を config.rb にコピーして同様に設定。
+- TNST_CHART_PATH には、www/chart/ への物理絶対パスを指定する。
+- TNST_RAW_PATH には、www/raw/ への物理絶対パスを指定する。
+- MEMCACHED_HOST には、Memcached へのホストとポートを指定する。
+
+var/template_c と var/cache に Web サーバユーザグループの書き込み件を与える。
+www/chart と www/raw に、cron ユーザの書き込み件を与え、Web サーバから見えるようにする。
+
+lib/smarty/ に Smarty 3.0.x の lib/ ディレクトリの中身を展開。lib/smarty/Smarty.class.php ができるはず。
+
+templates/ax.inc.php と www/index.html に autch のはてなカウンターアカウントが設定されているので修正する。
+
+www/ 以下を Web サーバで公開する。
+
+次の crontab を設定する。
+
+
+crontab
+-------
+
+現行の谷岡で使っている crontab は以下の通り。
+
+* 9-14 * * 1-5 nice /path/to/stooq_cron.rb
+0-5 15 * * 1-5 nice /path/to/stooq_cron.rb
+6 15 * * 1-5 nice /path/to/make_gif.rb USDKRW
+8 15 * * 1-5 nice /path/to/make_gif.rb KOSPI
+9 15 * * 1-5 nice /path/to/stooq_summary.rb
+7 15 * * 1-5 nice /path/to/stooq_raw.rb USDKRW
+7 15 * * 1-5 nice /path/to/stooq_raw.rb KOSPI
+
+
+ライセンス
+----------
+
+谷岡Stooqソースコード一式はzlibライセンスで提供されます。
+
+ソースコードについてはzlibライセンスですが、このソースコードによって
+Stooq.comから入手したデータについて、Stooq.comから入手したという事実を
+偽ったり、Stooq.comの運用を妨害するような行為は社会通念上慎まなければな
+りません。
+
+
+Copyright (c) 2008-2011, Autch.net (aka 谷岡.jp)
+
+本ソフトウェアは「現状のまま」で、明示であるか暗黙であるかを問わず、何
+らの保証もなく提供されます。 本ソフトウェアの使用によって生じるいかなる
+損害についても、作者は一切の責任を負わないものとします。
+
+以下の制限に従う限り、商用アプリケーションを含めて、本ソフトウェアを任
+意の目的に使用し、自由に改変して再頒布することをすべての人に許可します。
+
+1. 本ソフトウェアの出自について虚偽の表示をしてはなりません。あなたがオ
+リジナルのソフトウェアを作成したと主張してはなりません。あなたが本ソフ
+トウェアを製品内で使用する場合、製品の文書に謝辞を入れていただければ幸
+いですが、必須ではありません。
+
+2. ソースを変更した場合は、そのことを明示しなければなりません。オリジナ
+ルのソフトウェアであるという虚偽の表示をしてはなりません。
+
+3. ソースの頒布物から、この表示を削除したり、表示の内容を変更したりして
+はなりません。
+
+
+以下は同ライセンスの英語版です。
+
+Copyright (c) 2008-2011, Autch.net (aka tnok.jp)
+
+This software is provided 'as-is', without any express or implied
+warranty. In no event will the authors be held liable for any damages
+arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must
+not claim that you wrote the original software. If you use this
+software in a product, an acknowledgment in the product documentation
+would be appreciated but is not required.
+
+2. Altered source versions must be plainly marked as such, and must
+not be misrepresented as being the original software.
+
+3. This notice may not be removed or altered from any source
+distribution.
+
+
+
+----
+Autch
+autch@autch.net
+http://www.autch.net/
+http://tnok.jp/stooq/

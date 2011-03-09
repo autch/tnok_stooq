@@ -1,0 +1,1 @@
+<a href="http://www.amazon.co.jp/gp/product/{$isbn|escape}?ie=UTF8&tag=tnokstooq-22&linkCode=as2&camp=247&creative=7399&creativeASIN={$isbn|escape}">{$caption|escape}</a><img src="http://www.assoc-amazon.jp/e/ir?t=tnokstooq-22&l=as2&o=9&a={$isbn|escape}" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />

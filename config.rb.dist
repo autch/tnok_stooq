@@ -1,0 +1,11 @@
+
+MYSQL_HOST = ""
+MYSQL_USER = ""
+MYSQL_PASS = ""
+MYSQL_DB = ""
+
+TNST_CHART_PATH = File.join(File.dirname(File.expand_path(__FILE__)), "www/chart")
+TNST_RAW_PATH   = File.join(File.dirname(File.expand_path(__FILE__)), "www/raw")
+
+MEMCACHED_HOST = "127.0.0.1:11211"
+

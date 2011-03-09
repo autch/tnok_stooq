@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="content-style-type" content="text/css; charset=utf-8" />
+  <title>tnok.jp の API | 谷岡 Stooq</title>
+  <style type="text/css">
+    body { width: 80%; margin: 1em auto; }
+    pre { background: #eee; padding: 4px; margin: 0px; }
+    blockquote { border: 1px dashed black; }
+    h1 { font-weight: normal; }
+    h2 { border-left: 8px solid #000; border-bottom: 4px solid #000;
+         padding: 2px 4px; font-weight: normal; }
+    h3 { border-bottom: 2px solid #000; font-weight: normal; }
+    img{ border: none; }
+  </style>
+</head>
+<body>
+<p><a href="index.php">戻る</a></p>
+<h1>谷岡 Stooq の API とか仕様とか</h1>
+<div>Update: 2011.3.9 18:00</div>
+
+<h2>谷岡 API の利用について</h2>
+<p>谷岡 Stooq は、ポーランドの金融情報サイ
+ト <a href="http://stooq.com/">Stooq.com</a> の数値を HTTP 経由で取得し、
+<a href="http://www.gnuplot.info/">gnuplot</a> でチャートを生成して利用
+しています。</p>
+<p>データの利用に関しては、Stooq.com からのデータであることを明示する限
+り、谷岡.jp が新たな制限を設けることはありません。リクエストヘッダに、
+それとわかるような User-Agent を設定してもらえれば管理人が喜びます。
+</p>
+<p>谷岡.jp が提供するすべてのサービスとデータは無保証です。谷岡.jp が提
+供したサービス及びデータによって発生した事故については、利用者自身がそ
+の責任を負うこととします。</p>
+<p>現状で既に特アの IP を弾くようにしていますが、その他の経路でサーバや
+回線に過大な負荷がかかった場合、予告無く当該経路からのアクセスを制限する
+ことがあります。</p>
+<p>谷岡.jp が提供するサービスは、データ元である Stooq.com および 谷岡.
+jp 管理人の事情により、予告無くその一部または全部を中断もしくは終了する
+ことがあります。</p>
+
+<h2>谷岡 Stooq のスペック</h2>
+<dl>
+<dt>サーバ</dt><dd>NEC Express5800/GT110a, Core2Quad Q9650 3.0GHz, 8GB RAM,
+160GB HDD＠自宅＠B フレッツ</dd>
+<dt>OS</dt><dd>Debian GNU/Linux 6.0 "lenny" amd64 kernel 2.6.32</dd>
+<dt>httpd</dt><dd>Lighttpd 1.4.28 + FastCGI</dd>
+<dt>PHP</dt><dd>PHP 5.3.3 (FastCGI) + XCache</dd>
+<dt>Ruby</dt><dd>MRI 1.8.7p302</dd>
+<dt>DB</dt><dd>MySQL 5.1.49 + Memcached 1.4.5</dd>
+<dt>ケータイ対応</dt><dd>携帯版は Shift-JIS, それ以外のページは
+UTF-8 が読める端末のみ。</dd>
+</dl>
+
+<div>
+<a href="http://www.debian.org/"><img src="debian.gif"
+alt="Debian powered" width="80" height="15"/></a>
+<a href="http://www.lighttpd.net/"><img src="lighty.gif"
+alt="Fly light" width="80" height="27"/></a>
+<a href="http://www.php.net/"><img src="php5.gif" alt="PHP5
+powered" width="80" height="15"/></a>
+<a href="http://www.ruby-lang.org/"><img src="ruby.gif"
+alt="Ruby powered" width="80" height="15"/></a>
+<a href="http://www.mysql.com/"><img src="mysql.gif"
+alt="MySQL powered" width="80" height="15"/></a>
+<a href="http://www.danga.com/memcached/"><img border="0"
+src="memcached.gif" alt="Memcached powered" width="80"
+height="15"/></a>
+</div>
+
+<h2>リアルタイムに更新されるもの</h2>
+
+<h3>ふつうの</h3>
+<p>その日の最新の値、前日終値との比、始値、高値、安値、チャート、
+Stooq.com からの取得時刻を表示する。</p>
+<pre>http://tnok.jp/stooq/index.php?sym=&lt;SYMBOL&gt;&amp;s=&lt;SIZE&gt;&amp;r=&lt;RELOAD&gt;</pre>
+
+<dl>
+<dt><code>&lt;SYMBOL&gt;</code></dt>
+<dd>見たい銘柄。<code>USDKRW</code> か <code>KOSPI</code> のどちらか。
+デフォルトは <code>USDKRW</code></dd>
+<dt><code>&lt;SIZE&gt;</code></dt>
+<dd>チャート画像のサイズ。<code>s</code>, <code>m</code>,
+<code>l</code> のいずれかが指定でき、それぞれのサイズは、220x100,
+500x333, 700x466.  デフォルトは <code>s</code></dd>
+<dt><code>&lt;RELOAD&gt;</code></dt>
+<dd><code>1</code> のとき、JavaScript による 60 秒自動更新が有効になる。
+それ以外では無効になる。デフォルトは無効。</dd>
+</dl>
+
+<h3>チャート画像</h3>
+<p>指定された銘柄の、指定された日時と大きさのチャート。静的画像なので permalink できる。</p>
+<p>2009.04.09 よりチャート画像は谷岡 Stooq が自前で描画している。</p>
+<pre>http://tnok.jp/stooq/chart/&lt;YYYY&gt;/&lt;MM&gt;/&lt;DD&gt;/&lt;SYMBOL&gt;_&lt;YYYYMMDDHHMMSS&gt;_&lt;SIZE&gt;.gif</pre>
+<dl>
+<dt><code>&lt;YYYY&gt;, &lt;MM&gt;, &lt;DD&gt;, &lt;YYYYMMDDHHMMSS&gt;</code></dt>
+<dd>見たい瞬間の日時。</dd>
+<dt><code>&lt;SYMBOL&gt;</code></dt> <dd>チャートの銘柄。
+<code>usdkrw</code> か <code>kospi</code> のどちらか。</dd>
+<dt><code>&lt;SIZE&gt;</code></dt> <dd>チャート画像のサイズ。
+<code>s</code>, <code>m</code>, <code>l</code> のいずれかで、
+それぞれのサイズは、220x100, 500x333, 700x466.  デフォルトは 
+<code>s</code></dd> </dl>
+
+<h3>携帯版</h3>
+<p>ケータイ特化省サイズ。</p>
+<pre>http://tnok.jp/stooq/tiny.php?sym=&lt;SYMBOL&gt;</pre>
+<dl>
+<dt><code>&lt;SYMBOL&gt;</code></dt>
+<dd>見たい銘柄。<code>USDKRW</code> か <code>KOSPI</code> のどちらか。</dd>
+</dl>
+<p>ここだけ、refresh meta タグによって 60 秒で自動更新される。他のペー
+ジの自動更新は JavaScript によって行われる（キャッシュをクリアしてリロー
+ドさせるため）。</p>
+
+<h3>実況コピペ版</h3>
+<pre>http://tnok.jp/stooq/text.php</pre>
+<p>パラメータはない。60 秒自動更新。「コピー」ボタンは IE 専用。</p>
+
+<h3>Twitter コピペ版</h3>
+<p>「実況コピペ版」のテンプレート違い。Twitter へのコピペ向けに一行にし
+てある。</p>
+<pre>http://tnok.jp/stooq/text.php?type=twitter</pre>
+<p></p>
+<p>パラメータはない。60 秒自動更新。「コピー」ボタンは IE 専用。</p>
+
+<h3>ダッシュボード</h3>
+<p>USDKRW, KOSPI の両チャートと数字を同時表示。</p>
+<pre>http://tnok.jp/stooq/dashboard.php?r=&lt;RELOAD&gt;</pre>
+<dl><dt><code>&lt;RELOAD&gt;</code></dt> <dd><code>1</code> のとき、
+JavaScript による 60 秒自動更新が有効になる。それ以外では無効になる。
+デフォルトは無効だが、ダッシュボードへのリンクには <code>1</code> を設
+定してある。</dd> </dl>
+
+<h3>生データ</h3>
+<p>その日の 1 分毎の値動きを CSV 形式で取得する。日付が変わって非営業
+日になると、結果は空になる。</p>
+<pre>http://tnok.jp/stooq/raw.php?sym=&lt;SYMBOL&gt;</pre>
+<dl>
+<dt><code>&lt;SYMBOL&gt;</code></dt>
+<dd>欲しいデータの銘柄。<code>USDKRW</code> か <code>KOSPI</code> のど
+ちらか。</dd>
+</dl>
+<p>出力は CSV 形式として得られる。一行目は常にヘッダ。</p>
+<blockquote>
+<pre># id,symbol,date,time,opening,minimum,maximum,current,rate_percent
+91080,USDKRW,2009-04-10,09:02:04,1308.40,1308.40,1309.30,1309.10,-0.71
+91081,USDKRW,2009-04-10,09:03:03,1308.40,1308.40,1310.40,1310.40,-0.61
+91082,USDKRW,2009-04-10,09:04:03,1308.40,1308.40,1311.40,1311.00,-0.56
+91083,USDKRW,2009-04-10,09:05:03,1308.40,1308.40,1311.40,1310.70,-0.58
+91084,USDKRW,2009-04-10,09:06:02,1308.40,1308.40,1311.90,1311.10,-0.55
+91085,USDKRW,2009-04-10,09:07:02,1308.40,1308.40,1311.90,1310.90,-0.57
+91086,USDKRW,2009-04-10,09:08:02,1308.40,1308.40,1311.90,1309.40,-0.68
+91087,USDKRW,2009-04-10,09:09:03,1308.40,1305.60,1311.90,1305.60,-0.97
+91088,USDKRW,2009-04-10,09:10:03,1308.40,1299.80,1311.90,1299.80,-1.41
+</pre>
+</blockquote>
+<p>カンマ区切りで順に、ID, 銘柄、Stooq.com からの取得日、取得時刻、始値、
+最小値、最大値、現在値、前日終値比％。最大値と最小値は数字の大小が反映
+されており、日本で呼ぶ「高値・安値」ではない（ゆえに為替では最小値が
+「高値」となる）。その読み替えは表示の際に行う。</p>
+
+<h3>実況データ</h3>
+<p>その日の最新の終値を CSV 形式で取得する。日付が変わって非営業
+日になると、結果は空になる。</p>
+<pre>http://tnok.jp/stooq/current.php</pre>
+<p>パラメータはない。出力は CSV 形式として得られる。一行目は常にヘッダ。</p>
+<blockquote>
+<pre># id,symbol,date,time,opening,minimum,maximum,current,rate_percent
+164505,USDKRW,2009-08-31,10:03:03,1245.30,1244.90,1247.10,1245.50,0.10
+164506,KOSPI,2009-08-31,10:03:04,1607.61,1602.54,1611.65,1602.54,-0.34</pre>
+</blockquote>
+<p>データの構造は生データのものと同じ。</p>
+
+<h3>JSON</h3>
+
+<p>USDKRW/KOSPI の最新の値を JSON で返す。</p>
+<pre>http://tnok.jp/stooq/json.php</pre>
+<p>パラメータはない。</p>
+<blockquote>
+<pre>{
+  "usdkrw": {"id":91781,"symbol":"USDKRW","date":"2009-04-10","time":"15:05:03",
+    "opening":"1308.40","minimum":"1299.40","maximum":"1334.10","current":"1328.90","rate":"0.80",
+    "timestamp":1239343503,"img":"chart\/\/2009\/04\/10\/usdkrw_20090410150503_%s.gif"
+  },
+  "kospi":{"id":91782,"symbol":"KOSPI","date":"2009-04-10","time":"15:05:04",
+    "opening":"1340.87","minimum":"1319.52","maximum":"1355.69","current":"1336.07","rate":"1.50",
+    "timestamp":1239343504,"img":"chart\/\/2009\/04\/10\/kospi_20090410150504_%s.gif"
+  }
+}</pre>
+</blockquote>
+
+<h3>JSONP</h3>
+
+<p>USDKRW/KOSPI の最新の値を JSONP で返す。</p>
+<pre>http://tnok.jp/stooq/jsonp.php?cb=&lt;CALLBACK&gt;</pre>
+<dl>
+<dt><code>&lt;CALLBACK&gt;</code></dt>
+<dd>JSONP のコールバックに使われる関数名を指定する。関数名には
+<code>/^[a-zA-Z0-9][a-zA-Z0-9_]*$/</code> という正規表現でチェックが行われ、
+これにマッチしない関数名は <code>tnokJSONPCallback</code> という名前に
+修正される。<code>&lt;CALLBACK&gt;</code> を指定しなかったときも同様。
+</dd>
+</dl>
+<blockquote>
+<pre>
+tnokJSONPCallback(
+{ "usdkrw":{"id":96290,"symbol":"USDKRW",
+    "date":"2009-04-21","time":"09:31:03",
+    "opening":"1362.40","minimum":"1352.40",
+    "maximum":"1362.60","current":"1353.60",
+    "rate":"1.39","timestamp":1240273863,
+    "img":"chart\/\/2009\/04\/21\/usdkrw_20090421093103_%s.gif"},
+  "kospi":{"id":96291,"symbol":"KOSPI",
+    "date":"2009-04-21","time":"09:31:04",
+    "opening":"1307.95","minimum":"1304.24",
+    "maximum":"1312.81","current":"1312.81",
+    "rate":"-1.76","timestamp":1240273864,
+    "img":"chart\/\/2009\/04\/21\/kospi_20090421093104_%s.gif"}
+}
+);
+</pre>
+</blockquote>
+
+<h2>市場終了後生成されるもの</h2>
+
+<h3>「今日のまとめ」</h3>
+<p>その日のチャートを動画化したものを GIF アニメとして生成する。静的ファ
+イルとして出力されるので、生成されたものには permalink することができる。
+</p>
+<p>平日の 15:10 までには生成される。</p>
+<pre>http://tnok.jp/stooq/chart/&lt;SYMBOL&gt;_&lt;YYYY&gt;-&lt;MM&gt;-&lt;DD&gt;.gif</pre>
+<dl>
+<dt><code>&lt;SYMBOL&gt;</code></dt>
+<dd>対象の銘柄を<strong>小文字</strong>で指定する。<code>usdkrw</code> 
+か <code>kospi</code> のどちらか。</dd>
+<dt><code>&lt;YYYY&gt;-&lt;MM&gt;-&lt;DD&gt;</code></dt>
+<dd>対象の日付を YYYY-MM-DD の形式で指定する。<code>2008-11-06</code> 
+など。</dd> </dl>
+
+<h3>日次まとめ</h3>
+<p>USDKRW, KOSPI それぞれについて、一日ごとの始値、高値、安値、終値を
+まとめて表組みする。</p>
+<pre>http://tnok.jp/stooq/summary.php</pre>
+<p>パラメータはない。自動更新もしない。平日 15:10 ごろ更新。</p>
+
+<h3>生データ過去ログ</h3>
+<p>その日の値動きのまとめを CSV ファイルとして出力する。ファイルは静的
+に生成されるため、これらの URL には permalink することができる。</p>
+<p>平日の 15:10 までには生成される。</p>
+<pre>http://tnok.jp/stooq/raw/&lt;SYMBOL&gt;_&lt;YYYY&gt;-&lt;MM&gt;-&lt;DD&gt;.csv</pre>
+<dl>
+<dt><code>&lt;SYMBOL&gt;</code></dt>
+<dd>対象の銘柄を<strong>小文字</strong>で指定する。<code>usdkrw</code> 
+か <code>kospi</code> のどちらか。</dd>
+<dt><code>&lt;YYYY&gt;-&lt;MM&gt;-&lt;DD&gt;</code></dt>
+<dd>対象の日付を YYYY-MM-DD の形式で指定する。<code>2008-11-06</code> 
+など。</dd> </dl>
+
+<hr/>
+<div>
+<a href="http://validator.w3.org/check?uri=referer">
+<img src="http://www.w3.org/Icons/valid-xhtml10"
+     alt="Valid XHTML 1.0 Transitional"
+     height="31"
+     width="88"
+/></a>
+
+<a href="http://jigsaw.w3.org/css-validator/check/referer">
+  <img style="border:0;width:88px;height:31px"
+       src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+       alt="正当なCSSです!" /></a>
+</div>
+
+<div><a href="http://tnok.jp/stooq/">谷岡 Stooq</a>, hosted by
+<a href="http://www.autch.net/">Autch.net</a></div>
+
+<script type="text/javascript"><!--
+    hatena_counter_name = "autch";
+    hatena_counter_id = "12";
+    hatena_counter_ref = document.referrer+"";
+    hatena_counter_screen = screen.width + "x" + screen.height+","+screen.colorDepth;
+//--></script>
+<script type="text/javascript" src="http://counter.hatena.ne.jp/js/counter.js"></script>
+<noscript><img src="http://counter.hatena.ne.jp/autch/12" alt="counter"/></noscript>
+
+</body>
+</html>
