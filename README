@@ -66,13 +66,13 @@ crontab
 
 現行の谷岡で使っている crontab は以下の通り。
 
-* 9-14 * * 1-5 nice /path/to/stooq_cron.rb
-0-5 15 * * 1-5 nice /path/to/stooq_cron.rb
-6 15 * * 1-5 nice /path/to/make_gif.rb USDKRW
-8 15 * * 1-5 nice /path/to/make_gif.rb KOSPI
-9 15 * * 1-5 nice /path/to/stooq_summary.rb
-7 15 * * 1-5 nice /path/to/stooq_raw.rb USDKRW
-7 15 * * 1-5 nice /path/to/stooq_raw.rb KOSPI
+* 9-14 * * 1-5 (cd /path/to/; nice ./stooq_cron.rb)
+0-5 15 * * 1-5 (cd /path/to/; nice ./stooq_cron.rb)
+6 15 * * 1-5 (cd /path/to/; nice ./make_gif.rb USDKRW)
+8 15 * * 1-5 (cd /path/to/; nice ./make_gif.rb KOSPI)
+9 15 * * 1-5 (cd /path/to/; nice ./stooq_summary.rb)
+7 15 * * 1-5 (cd /path/to/; nice ./stooq_raw.rb USDKRW)
+7 15 * * 1-5 (cd /path/to/; nice ./stooq_raw.rb KOSPI)
 
 
 ライセンス
