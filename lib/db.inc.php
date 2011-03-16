@@ -50,7 +50,7 @@ function query_to_db(&$mysqli, &$params, &$memcache)
     list($hh, $ii, $ss) = explode(":", $result['time']);
 
     $result['timestamp'] = mktime($hh, $ii, $ss, $mm, $dd, $yyyy);
-    $path = TNST_CHART_IMAGES . '/' . strftime("%Y/%m/%d", $result['timestamp']);
+    $path = TNST_PREFIX_CHART . '/' . strftime("%Y/%m/%d", $result['timestamp']);
     $result['img'] = $path . '/' . sprintf("%s_%s_%%s.gif", strtolower($result['symbol']),
                                            strftime("%Y%m%d%H%M%S", $result['timestamp']));
     if($params['id'] != 0)

@@ -6,10 +6,10 @@
     <meta http-equiv="content-type" content="text/html; charset=Shift_JIS" /> 
     <title>{$stooq.symbol|escape} | 谷岡 Stooq iPhone/Android版</title>
     <meta name="viewport" content="width=device-width; initial-scale=1.0;maximum-s\cale=1.0; user-scalable=0;"/>
-    <link rel="apple-touch-icon" href="/stooq/iui/iui-logo-touch-icon.png" />
+    <link rel="apple-touch-icon" href="iui/iui-logo-touch-icon.png" />
     <meta name="apple-touch-fullscreen" content="YES" />
-    <style type="text/css" media="screen">@import "/stooq/iui/iuix.css";</style>
-    <script type="text/javascript" src="/stooq/iui/iuix.js"></script>
+    <style type="text/css" media="screen">@import "iui/iuix.css";</style>
+    <script type="text/javascript" src="iui/iuix.js"></script>
     <script type="text/javascript"><!--{literal}
     pe = null;
     function setPE()
@@ -53,7 +53,7 @@
 <li><a href="?sym=USDKRW" target="_self">USDKRW</a></li>
 <li><a href="?sym=KOSPI" target="_self">KOSPI</a></li>
 <li class="group"></li>
-<li><a href="/stooq/" target="_self">フル版へ</a></li>
+<li><a href="index.php" target="_self">フル版へ</a></li>
 </ul>
 
 </body>

@@ -13,7 +13,7 @@ function smarty_function_chart($params, &$smarty)
   }
   else
   {
-    return sprintf("%s（まだ）",
-                   htmlspecialchars(strtoupper($params['symbol'])));
+    return sprintf("%s（まだ）<!-- %s -->",
+                   htmlspecialchars(strtoupper($params['symbol'])), TNST_DOCROOT . '/' . $filename);
   }
 }
