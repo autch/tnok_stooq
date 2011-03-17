@@ -112,6 +112,6 @@ img = IO.popen("-", "r+") do |io|
   end
 end
 
-File.open("daily.gif", "wb"){|io| io << img }
+File.open("daily_#{fetcher.symbol.downcase}.gif", "wb"){|io| io << img }
 
 @mysql.close

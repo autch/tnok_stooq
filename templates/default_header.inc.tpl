@@ -27,7 +27,7 @@
  | <a href="text.php" title="テキストオンリー">実況コピペ版</a>
  | <a href="dashboard.php?r=1" title="全部入り">ダッシュボード</a>
  | <a href="summary.php" title="β版">日次まとめ</a>
- || <a href="http://tnok.jp/tnst/api.html">仕様</a>
+ || <a href="http://tnok.jp/stooq/api.html">仕様</a>
  | <a href="http://twitter.com/tnok_stooq/">Twitter</a></div>
 <hr>
 {include file="holidays.tpl"}
