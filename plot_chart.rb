@@ -65,6 +65,7 @@ if $0 == __FILE__ then
   fetcher = Candlizer.new(@mysql)
   fetcher.symbol = ARGV.shift || 'USDKRW'
   fetcher.date = ARGV.shift || Date.today
+  fetcher.tm_to = ARGV.shift || nil
   plotter = ChartPlotter.new(fetcher)
   plotter.config = ChartConfigPreset::Large
   plotter.output = nil
