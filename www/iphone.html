@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>谷岡 Stooq iPhone/Android版</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
+    <script type="text/javascript">
+function set_value(top_key, json, invert_high_and_low)
+{
+    if(typeof(invert_high_and_low) == "undefined") invert_high_and_low = false;
+
+    $(top_key + ' .chart-img').css("background-image", 'url("' + json.img.replace('%s', 's') + '")');
+    $(top_key + ' .opening').text("始値: " + json.opening);
+
+    $(top_key + ' .value').text(json.symbol + ": " + json.current + ' (' + json.rate + '%; ' + json.time + ')');
+
+    if(invert_high_and_low) {
+	$(top_key + ' .minimum').text("安値: " + json.minimum);
+	$(top_key + ' .maximum').text("高値: " + json.maximum);
+    } else {
+	$(top_key + ' .minimum').text("高値: " + json.minimum);
+	$(top_key + ' .maximum').text("安値: " + json.maximum);
+    }
+}
+
+function onload()
+{
+    $.ajax({
+	url: "http://tnok.jp/stooq/jsonp.php",
+	dataType: "jsonp",
+	jsonp: "cb",
+	success: function(json) {
+	    set_value("#usdkrw", json.usdkrw);
+	    set_value("#kospi", json.kospi, true);
+	}
+    });
+
+    window.setTimeout(function(obj){ onload(); }, 60000);
+}
+</script>
+    <style type="text/css">
+      .chart-img { background-repeat: no-repeat; padding-top: 4px; height: 100px; }
+    </style>
+  </head> 
+<body onload="onload()">
+  <div data-role="page" id="usdkrw">
+    <div data-role="header">
+      <h1>USDKRW</h1>
+      <a data-role="button" href="javascript:onload()">更新</a>
+      <a data-role="button" href="#kospi">KOSPI</a>
+    </div>
+    <div data-role="content">
+      <ul id="stooq" data-role="listview">
+	<li class="value"></li>
+	<li><div class="chart-img"></div></li>
+	<li class="opening"></li>
+	<li class="minimum"></li>
+	<li class="maximum"></li>
+      </ul>
+    </div>
+    <div data-role="footer" class="ui-bar">
+      <a data-role="button" href="/stooq/" target="_self">フル版へ</a>
+    </div>
+  </div>
+  <div data-role="page" id="kospi">
+    <div data-role="header">
+      <h1>KOSPI</h1>
+      <a data-role="button" href="javascript:onload()">更新</a>
+      <a data-role="button" href="#usdkrw">USDKRW</a>
+    </div>
+    <div data-role="content">
+      <ul id="stooq" data-role="listview">
+	<li class="value"></li>
+	<li><div class="chart-img"></div></li>
+	<li class="opening"></li>
+	<li class="maximum"></li>
+	<li class="minimum"></li>
+      </ul>
+    </div>
+    <div data-role="footer" class="ui-bar">
+      <a data-role="button" href="/stooq/" target="_self">フル版へ</a>
+    </div>
+  </div>
+</body>
+</html>

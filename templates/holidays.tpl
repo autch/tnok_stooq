@@ -10,3 +10,7 @@
 {if $today eq "20091225"}
 <p><b>Happy Holidays! 今日は休場。</b></p>
 {/if}
+
+{if $today eq "20110606"}
+<p><b>今日は顕忠日でおやすみ。</b></p>
+{/if}

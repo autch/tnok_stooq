@@ -23,7 +23,7 @@
 || 自動更新：{if !$reload}<a href="?sym={$stooq.symbol|escape}&s={$s|escape}&r=1">入</a> | 切{else}入 | <a href="?sym={$stooq.symbol|escape}&s={$s|escape}&r=0">切</a>{/if}
  || <a href="tiny.php?sym={$symbol|default:"USDKRW"}"
  title="省サイズ">携帯版</a>
- | <a href="iphone.php?sym={$symbol|default:"USDKRW"}">iPhone 版</a>
+ | <a href="iphone.html">iPhone 版</a>
  | <a href="text.php" title="テキストオンリー">実況コピペ版</a>
  | <a href="dashboard.php?r=1" title="全部入り">ダッシュボード</a>
  | <a href="summary.php" title="β版">日次まとめ</a>
