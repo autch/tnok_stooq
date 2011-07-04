@@ -19,13 +19,13 @@
 <body{if $reload} onload="setPE();"{/if}>
 <div>
 <a href="index.php?sym=USDKRW&s={$s|escape}&r={$r|escape}">USDKRW</a>
- | <a href="index.php?sym=KOSPI&s={$s|escape}&r={$r|escape}">KOSPI</a>
+{* | <a href="index.php?sym=KOSPI&s={$s|escape}&r={$r|escape}">KOSPI</a>*}
 || 自動更新：{if !$reload}<a href="?sym={$stooq.symbol|escape}&s={$s|escape}&r=1">入</a> | 切{else}入 | <a href="?sym={$stooq.symbol|escape}&s={$s|escape}&r=0">切</a>{/if}
  || <a href="tiny.php?sym={$symbol|default:"USDKRW"}"
  title="省サイズ">携帯版</a>
  | <a href="iphone.html">iPhone 版</a>
  | <a href="text.php" title="テキストオンリー">実況コピペ版</a>
- | <a href="dashboard.php?r=1" title="全部入り">ダッシュボード</a>
+{* | <a href="dashboard.php?r=1" title="全部入り">ダッシュボード</a>*}
  | <a href="summary.php" title="β版">日次まとめ</a>
  || <a href="http://tnok.jp/stooq/api.html">仕様</a>
  | <a href="http://twitter.com/tnok_stooq/">Twitter</a></div>

@@ -36,7 +36,7 @@ class Scraper
     row[0]
   end
 
-  def scrape(url, symbol, db_key, dup_check_limit = 5)
+  def scrape(url, symbol, db_key, pickup_key, dup_check_limit = 5)
     agent = ::Mechanize.new
     agent.get(url)
 
@@ -44,11 +44,11 @@ class Scraper
       root = agent.page.root
       h = {}
       pickup = {
-        :opening => "span#aq_#{symbol}_o",
-        :high => "span#aq_#{symbol}_h",
-        :low => "span#aq_#{symbol}_l",
-        :current => "span#aq_#{symbol}_c2",
-        :rate => "span#aq_#{symbol}_m1"
+        :opening => "span#aq_#{pickup_key}_o",
+        :high => "span#aq_#{pickup_key}_h",
+        :low => "span#aq_#{pickup_key}_l",
+        :current => "span#aq_#{pickup_key}_c2",
+        :rate => "span#aq_#{pickup_key}_m1"
       }
 
       pickup.each{|k, v| h[k] = root.search(v).first.text }
@@ -89,8 +89,16 @@ end
 scraper = Scraper.new
 
 # USDKRW
-scraper.scrape('http://stooq.com/notowania/?data=&kat=w3',
-               'usdkrw', 'USDKRW', 5)
+begin
+  scraper.scrape('http://stooq.com/notowania/?data=&kat=w3',
+                 'usdkrw', 'USDKRW', 'usdkrw', 5)
+rescue
+  p [$!, $@]
+end
 # KOSPI
-scraper.scrape('http://stooq.com/notowania/?data=&kat=i1',
-               'kospi', 'KOSPI', 21)
+begin
+  scraper.scrape('http://stooq.com/notowania/?data=&kat=i1',
+                 'kospi', 'KOSPI', '^kospi', 21)
+rescue
+  p [$!, $@]
+end

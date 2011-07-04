@@ -14,7 +14,7 @@
 </td>
 
 <td>
-<div>KOSPI: {$kospi.current|escape} ({$kospi.rate|difference|escape}%; {$kospi.time|escape} JST)
+{*<div>KOSPI: {$kospi.current|escape} ({$kospi.rate|difference|escape}%; {$kospi.time|escape} JST)
 {if intval(strftime("%H%M", $kospi.timestamp)) < 920}
 <b>（9:20 まで KOSPI は前日値）</b>
 {/if}</div>
@@ -25,7 +25,7 @@
 <div>始：{$kospi.opening|escape}
  | 高：{$kospi.maximum|escape}
  | 安：{$kospi.minimum|escape}
-</div>
+</div>*}
 </td>
 
 </tr>

@@ -26,7 +26,7 @@
 | <a href="?">実況板用</a></div>
 <textarea rows="2" cols="70" onclick="focus(); select();" name="value"
 id="value"
-readonly="readonly">[{$usdkrw.time|regex_replace:"/:\\d\\d$/":""|escape}] USDKRW: {$usdkrw.current|escape} ({$usdkrw.rate|difference|escape}%) / KOSPI: {if intval(strftime("%H%M", $kospi.timestamp)) < 920}（前日値）{/if}{$kospi.current|escape} ({$kospi.rate|difference|escape}%) #tnok_stooq</textarea>
+readonly="readonly">[{$usdkrw.time|regex_replace:"/:\\d\\d$/":""|escape}] USDKRW: {$usdkrw.current|escape} ({$usdkrw.rate|difference|escape}%) {*/ KOSPI: {if intval(strftime("%H%M", $kospi.timestamp)) < 920}（前日値）{/if}{$kospi.current|escape} ({$kospi.rate|difference|escape}%) *}#tnok_stooq</textarea>
 <button onclick="copy_value()">コピー (IE 専用)</button>
 <div><a href="index.php">谷岡 Stooq</a></div>
 {include file="ads_and_counter.tpl"}

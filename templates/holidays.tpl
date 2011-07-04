@@ -14,3 +14,10 @@
 {if $today eq "20110606"}
 <p><b>今日は顕忠日でおやすみ。</b></p>
 {/if}
+
+<div style="border: 1px solid red; padding: 2px; margin: 0.5em auto;">
+<p>各種スレのテンプレから削除推奨。<a href="http://twitter.com/#!/tnok_stooq/status/83344371633758208">KOSPI終了の言い訳</a><br/>
+ここの閉鎖はいくつかのスレでテンプレから外されて2週間程度経ったら決行予定。</p>
+
+<p>閉鎖後も<a href="http://www.google.co.jp/search?ie=UTF-8&q=%E5%BD%93%E5%88%86%E3%81%AE%E9%96%93">当分の間</a>はチャート画像と数値DBのダンプと有志提供の跡地画像を掲載する。ついでに<a href="http://github.com/autch/tnok_stooq/">全ソースコード</a>。</p>
+</div>
