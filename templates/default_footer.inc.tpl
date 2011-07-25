@@ -16,5 +16,11 @@ href="http://tnok.jp/">jp</a>, aka <a
 href="http://www.autch.net/">Autch.net</a></div>
 
 {include file="ads_and_counter.tpl"}
+{if isset($smarty.request.analog)}
+</div>
+<div class="kuro_obi" style="text-align: center;">
+ヲンのチェックでお困りの方は <a href="https://gist.github.com/1077689" target="_blank">jQuery 版</a>まで
+</div>
+{/if}
 </body>
 </html>

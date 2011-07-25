@@ -1,4 +1,4 @@
-<html>
+{if isset($smarty.request.analog)}<!DOCTYPE html>{/if}<html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="alternate" type="application/rss+xml" title="管理人のぼやき" href="http://twitter.com/statuses/user_timeline/tnok_stooq.rss">
@@ -15,8 +15,24 @@
       document.body.innerHTML = document.body.innerHTML.replace(/。/g, 'ニダ。');
     }
 {/literal}--></script>
+{if isset($smarty.request.analog)}
+  <style type="text/css">{literal}
+    body { margin: 0px; padding: 0px; background: #000; }
+    .kuro_obi { padding: 6px 4px; margin: 0px; background: #000; color: #fff;
+                font-size: 18pt; vertical-align: middle;}
+    #analog_wm { margin: 2px; float: right;  }
+  {/literal}</style>
+{/if}
 </head>
 <body{if $reload} onload="setPE();"{/if}>
+{if isset($smarty.request.analog)}
+<div class="kuro_obi">
+  <div style="float: left;">７月２４日正午(予定)以降、このサイトはご覧になれません。</div>
+  <img id="analog_wm" src="analog.png" width="104" height="24">
+  <div style="clear: both; height: 0px; display:block; visibility: hidden;"></div>
+</div>
+<div style="padding: 8px; background: #fff;">
+{/if}
 <div>
 <a href="index.php?sym=USDKRW&s={$s|escape}&r={$r|escape}">USDKRW</a>
 {* | <a href="index.php?sym=KOSPI&s={$s|escape}&r={$r|escape}">KOSPI</a>*}
