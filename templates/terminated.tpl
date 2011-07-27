@@ -3,21 +3,11 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <style type="text/css">
-  body { background: #00d; color: #fff; }
+  body { background: #ddd; color: #000; }
   .top-msg { font-size: 24pt; text-align: center; }
   .terminated { font-size: 30pt; color: #f00; font-weight: bold; text-align: center; }
-  a { color: #0ff; }
-  .shadowed { text-shadow:
-  -1pt -1pt #fff,
-  -1pt 0pt #fff,
-  0pt -1pt #fff,
-  1pt 1pt #fff,
-  0pt 1pt #fff,
-  1pt 0pt #fff,
-  2pt 2pt #000;
-  }
   #notice div { margin-bottom: 8pt; }
-  #related-resources { border: 1pt solid #fff; width: 80%; margin: 0 auto; padding: 4pt;} 
+  #related-resources { border: 1pt solid #000; width: 80%; margin: 0 auto; padding: 4pt;} 
   #related-resources div { font-size: 16pt; text-align: left; }
 </style>
 </head>
@@ -25,7 +15,7 @@
 <div id="notice">
 <div class="top-msg">&nbsp;</div>
 <div class="top-msg">ご覧の谷岡 Stooq は</div>
-<div class="terminated shadowed">24日に更新を終了しました</div>
+<div class="terminated">7月24日に更新を終了しました</div>
 <div class="top-msg">今後は <a href="https://gist.github.com/1077689">jQuery 版</a>をお楽しみください。</div>
 </div>
 
@@ -51,6 +41,9 @@
 <div style="font-size: 16pt; text-align: center;">◆R.I.P.</div>
 <div style="text-align: center;"><img src="stooq_rip.jpg"></div>
 
+<br>
+<br>
+<div><a href="http://tnok.jp/">谷岡.jp</a>, hosted by <a href="http://www.autch.net/">Autch.net</a></div>
 
 </body>
 </html>

@@ -23,6 +23,5 @@
 {/if}
 <hr>
 <div><a href="index.php?sym={$stooq.symbol|escape}">ƒtƒ‹”Å</a></div>
-{include file="ads_and_counter.tpl" ktai=true}
 </body>
 </html>

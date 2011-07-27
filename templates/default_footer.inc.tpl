@@ -15,7 +15,6 @@ href="javascript:nida();">.</a><a
 href="http://tnok.jp/">jp</a>, aka <a
 href="http://www.autch.net/">Autch.net</a></div>
 
-{include file="ads_and_counter.tpl"}
 {if isset($smarty.request.analog)}
 </div>
 <div class="kuro_obi" style="text-align: center;">
